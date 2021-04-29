@@ -9,9 +9,7 @@
           >
         </v-card>
         <v-text-field v-model="enteredValue" :clearable="true"></v-text-field>
-        <v-btn @click="process(enteredValue)"
-          >Click Me to Make Your Life Easier</v-btn
-        >
+        <v-btn @click="process(enteredValue)">Convert</v-btn>
 
         <v-card v-if="output !== ''">
           <v-card-text>
@@ -35,13 +33,9 @@ export default {
   },
   methods: {
     process(value) {
-      // let string = {"operationName":"getSubscriptions","variables":{},"query":"query getSubscriptions {\n  getSubscriptions(\n    filter: {tenant_id: \"5f335bf8a3cedf00018d442e\", rate_plan_type: staas}\n    pagination: {limit: 10, offset: 0, order_by: desc, sort_by: \"created_at\"}\n  ) {\n    Subscriptions {\n      id\n      name\n      tenant_id\n      zone {\n        name\n        __typename\n      }\n      rate_plans_staas {\n        service_level {\n          name\n          __typename\n        }\n        commitment_gib\n        start_date\n        end_date\n        term_length\n        __typename\n      }\n      created_at\n      __typename\n    }\n    pagination_result {\n      limit\n      offset\n      returned_records\n      total_records\n      __typename\n    }\n    __typename\n  }\n}\n"}
       let string = JSON.stringify(value);
-      string = string
-        .substring(string.lastIndexOf("query"), string.length - 3)
-        .replace(/\\n/g, "")
-        .replace(/__typename/g, "")
-        .replace(/\\/g, "");
+      // prettier-ignore
+      string = string.substring(string.lastIndexOf("query"), string.length - 3).replace(/\\n/g, "").replace(/__typename/g, "").replace(/\\/g, "");
       this.output = string;
     },
   },
